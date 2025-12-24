@@ -3,14 +3,16 @@ package model
 import "time"
 
 // Manufacturer — производитель товара.
-// @desc Лучше держать отдельно, чем строкой в Item, чтобы избежать дублирования.
 type Manufacturer struct {
-	// @var string UUID
+	// ID — первичный ключ.
 	ID int `json:"id"`
-	// @var string Название производителя
-	Name string `json:"name" `
-	// @var time.Time CreatedAt
+
+	// Name — название производителя.
+	Name string `json:"name"`
+
+	// CreatedAt — время создания.
 	CreatedAt time.Time `json:"created_at"`
-	// @var time.Time UpdatedAt
+
+	// UpdatedAt — время обновления.
 	UpdatedAt time.Time `json:"updated_at"`
 }

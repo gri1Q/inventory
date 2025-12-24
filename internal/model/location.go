@@ -2,25 +2,38 @@ package model
 
 import "time"
 
-// Location обозначает место хранения/склад/офис/квартиру/кабинет.
-// @desc Универсальная сущность для физических адресов и помещений.
+// Location — место хранения: склад, офис, квартира, кабинет и т.п.
 type Location struct {
-	// @var int UUID
-	ID int `json:"id" `
-	// @var string Название локации (например "Основной склад")
-	Name string `json:"name" `
-	// @var string Улица и номер дома
+	// ID — первичный ключ.
+	ID int `json:"id" gorm:"primaryKey;autoIncrement"`
+
+	// Name — удобное название (например "Основной склад").
+	Name string `json:"name"`
+
+	// Street — улица и номер дома.
 	Street string `json:"street,omitempty"`
-	// @var string Номер кабинета/квартиры/ящика
-	Room string `json:"room,omitempty" `
-	// @var string Телефон контактного лица/склада
-	Phone string `json:"phone,omitempty" `
-	// @var string Email контакта
+
+	// Building — корпус/строение (опционально).
+	Building string `json:"building,omitempty"`
+
+	// Floor — этаж (опционально).
+	Floor string `json:"floor,omitempty"`
+
+	// Room — номер кабинета/квартиры/ячейки (опционально).
+	Room string `json:"room,omitempty"`
+
+	// Phone — контактный телефон.
+	Phone string `json:"phone,omitempty"`
+
+	// Email — контактный email.
 	Email string `json:"email,omitempty"`
-	// @var bool Активна ли локация
+
+	// Active — активна ли локация.
 	Active bool `json:"active"`
-	// @var time.Time CreatedAt
+
+	// CreatedAt — время создания.
 	CreatedAt time.Time `json:"created_at"`
-	// @var time.Time UpdatedAt
+
+	// UpdatedAt — время обновления.
 	UpdatedAt time.Time `json:"updated_at"`
 }

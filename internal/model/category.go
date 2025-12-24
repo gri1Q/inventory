@@ -2,20 +2,26 @@ package model
 
 import "time"
 
-// Category представляет категорию товара.
+// Category описывает категорию товара.
 type Category struct {
-	// @var string Уникальный идентификатор (UUID)
-	ID int `json:"id"`
-	// @var string Название категории
-	Name string `json:"name"`
-	// @var string Описание категории
-	Description string `json:"description"`
-	// @var *string ID родительской категории, nil если корневая
-	ParentID *int `json:"parent_id"`
-	// @var bool Активна ли категория
-	Active bool `json:"active"`
-	// @var time.Time Время создания
+	// ID — первичный ключ (auto-increment).
+	ID int `json:"id" `
+
+	// Name — название категории.
+	Name string `json:"name" `
+
+	// Description — описание категории.
+	Description string `json:"description,omitempty" `
+
+	// ParentID — ID родительской категории, nil если это корневая.
+	ParentID *int `json:"parent_id,omitempty" `
+
+	// Active — активна ли категория.
+	Active bool `json:"active" `
+
+	// CreatedAt — время создания записи.
 	CreatedAt time.Time `json:"created_at"`
-	// @var time.Time Время последнего обновления
+
+	// UpdatedAt — время последнего обновления.
 	UpdatedAt time.Time `json:"updated_at"`
 }

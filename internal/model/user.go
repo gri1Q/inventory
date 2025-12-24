@@ -2,23 +2,22 @@ package model
 
 import "time"
 
-// User — учетная запись пользователя системы.
-// @desc Хранит информацию для авторизации и привязку к роли.
+// User — учётная запись пользователя системы.
 type User struct {
-	// @var string UUID PK
+	// ID — первичный ключ.
 	ID string `json:"id"`
-	// @var string Полное имя пользователя
+	// Name — полное имя пользователя.
 	Name string `json:"name" `
-	// @var string Email (используется для логина)
+	// Email — адрес электронной почты (используется для входа).
 	Email string `json:"email" `
-	// @var string Хэш пароля. НЕ возвращается в JSON.
+	// PasswordHash — хэш пароля; не возвращается в JSON.
 	PasswordHash string `json:"-" `
-	// @var int ID роли
+	// RoleID — ссылка на роль (Role.ID).
 	RoleID int `json:"role_id" `
-	// @var bool Аккаунт активен
+	// Active — активен ли аккаунт.
 	Active bool `json:"active"`
-	// @var time.Time CreatedAt
+	// CreatedAt — время создания.
 	CreatedAt time.Time `json:"created_at"`
-	// @var time.Time UpdatedAt
+	// UpdatedAt — время обновления.
 	UpdatedAt time.Time `json:"updated_at"`
 }
