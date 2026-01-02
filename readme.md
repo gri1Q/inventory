@@ -15,8 +15,8 @@ inventory/
 └── go.sum           # Файл контрольных сумм зависимостей
 
 Get-ChildItem -Path $folder -File -Recurse | ForEach-Object {
->>     Write-Host "📄 Файл: $($_.Name)" -ForegroundColor Cyan
->>     Write-Host "-------- Содержимое --------"
->>     Get-Content $_.FullName
->>     Write-Host "----------------------------`n"
->> }
+Write-Host "📄 Файл: $($_.Name)" -ForegroundColor Cyan
+Write-Host "-------- Содержимое --------"
+Get-Content $_.FullName
+Write-Host "----------------------------`n"
+}

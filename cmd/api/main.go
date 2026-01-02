@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// Подключение Config
 	cfg := config.MustLoad()
 
 	// Сборка роутера с внедрёнными сервисами

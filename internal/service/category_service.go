@@ -36,7 +36,6 @@ func (s *CategoryService) GetAll(ctx context.Context) ([]model.Category, error) 
 			ID:          1,
 			Name:        "Электроника",
 			Description: "Телефоны, ноутбуки и гаджеты",
-			ParentID:    nil,
 			Active:      true,
 			CreatedAt:   now.Add(-72 * time.Hour),
 			UpdatedAt:   now,
@@ -45,7 +44,6 @@ func (s *CategoryService) GetAll(ctx context.Context) ([]model.Category, error) 
 			ID:          2,
 			Name:        "Одежда",
 			Description: "Мужская и женская одежда",
-			ParentID:    nil,
 			Active:      true,
 			CreatedAt:   now.Add(-48 * time.Hour),
 			UpdatedAt:   now,
@@ -54,7 +52,6 @@ func (s *CategoryService) GetAll(ctx context.Context) ([]model.Category, error) 
 			ID:          3,
 			Name:        "Смартфоны",
 			Description: "Мобильные телефоны и аксессуары",
-			ParentID:    intPtr(1), // дочерняя категория от "Электроника"
 			Active:      true,
 			CreatedAt:   now.Add(-24 * time.Hour),
 			UpdatedAt:   now,
@@ -62,7 +59,4 @@ func (s *CategoryService) GetAll(ctx context.Context) ([]model.Category, error) 
 	}
 
 	return categories, nil
-}
-func intPtr(v int) *int {
-	return &v
 }

@@ -13,9 +13,6 @@ type Category struct {
 	// Description — описание категории.
 	Description string `json:"description,omitempty" `
 
-	// ParentID — ID родительской категории, nil если это корневая.
-	ParentID *int `json:"parent_id,omitempty" `
-
 	// Active — активна ли категория.
 	Active bool `json:"active" `
 
