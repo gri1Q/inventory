@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "127.0.0.1:81:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/configs/nginx:/etc/nginx/conf.d
+      - ./docker/logs/nginx:/var/log/nginx
+    networks:
+      - gingonic
+
+  db:
+    image: postgres:14.7-alpine
+    container_name: db-postgres
+    hostname: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}        # <- ошибка: тут должно быть ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - gingonic
+
+  pgadmin:
+    image: dpage/pgadmin4:7
+    container_name: pgadmin4_container
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - gingonic
+
+networks:
+  gingonic:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+  pgadmin-data:
+    driver: local
