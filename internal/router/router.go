@@ -14,9 +14,10 @@ func SetupRouter(categoryHandler *handler.CategoryHandler) *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	api := r.Group("/api/v1")
+	v1 := r.Group("/api/v1")
 	{
-		api.GET("/categories", categoryHandler.ShowCategories)
+		v1.GET("/categories", categoryHandler.ShowCategories)
+		v1.POST("/categories", categoryHandler.CreateCategory)
 	}
 
 	return r

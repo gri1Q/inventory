@@ -11,7 +11,7 @@ type Category struct {
 	Name string `json:"name" `
 
 	// Description — описание категории.
-	Description string `json:"description,omitempty" `
+	Description string `json:"description,omitempty"`
 
 	// Active — активна ли категория.
 	Active bool `json:"active" `
