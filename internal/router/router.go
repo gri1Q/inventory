@@ -17,6 +17,7 @@ func SetupRouter(categoryHandler *handler.CategoryHandler) *gin.Engine {
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("/categories", categoryHandler.ShowCategories)
+		//TODO CSRF узнать
 		v1.POST("/categories", categoryHandler.CreateCategory)
 	}
 

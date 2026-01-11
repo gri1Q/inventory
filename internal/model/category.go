@@ -5,20 +5,20 @@ import "time"
 // Category описывает категорию товара.
 type Category struct {
 	// ID — первичный ключ (auto-increment).
-	ID int `json:"id" `
+	ID int
 
 	// Name — название категории.
-	Name string `json:"name" `
+	Name string
 
 	// Description — описание категории.
-	Description string `json:"description,omitempty"`
+	Description string
 
 	// Active — активна ли категория.
-	Active bool `json:"active" `
+	Active bool `gorm:"default:true"`
 
 	// CreatedAt — время создания записи.
-	CreatedAt time.Time `json:"created_at"`
+	CreatedAt time.Time `gorm:"autoCreateTime"`
 
 	// UpdatedAt — время последнего обновления.
-	UpdatedAt time.Time `json:"updated_at"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }

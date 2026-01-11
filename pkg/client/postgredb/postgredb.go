@@ -34,7 +34,7 @@ func Connect(cfg *config.Config) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	// получить базовый *sql.DB чтобы настроить пул
+	// получить базовый *sql.db чтобы настроить пул
 	sqlDB, err := db.DB()
 	if err != nil {
 		return nil, err

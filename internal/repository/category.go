@@ -24,3 +24,7 @@ func (r *CategoryRepository) GetAll(ctx context.Context) ([]*model.Category, err
 	err := r.db.WithContext(ctx).Find(&categories).Error
 	return categories, err
 }
+
+func (r *CategoryRepository) DB() *gorm.DB {
+	return r.db
+}

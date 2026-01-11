@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"inventory/internal/config"
 	"inventory/internal/handler"
+	"inventory/internal/repository"
 	"inventory/internal/router"
 	"inventory/internal/service"
 	"inventory/pkg/client/postgredb"
@@ -30,8 +31,10 @@ func main() {
 	fmt.Println("✅ Подключение к PostgreSQL успешно установлено")
 
 	// Сборка роутера с внедрёнными сервисами
-	categoryService := service.NewCategoryService()
+	categoryRepo := repository.NewCategoryRepository(db)
+	categoryService := service.NewCategoryService(categoryRepo)
 	categoryHandler := handler.NewCategoryHandler(categoryService)
+
 	router := router.SetupRouter(categoryHandler)
 	router.Run(cfg.HTTPServer.Addr)
 

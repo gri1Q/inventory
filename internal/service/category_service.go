@@ -4,12 +4,14 @@ import (
 	"context"
 	"inventory/internal/dto"
 	"inventory/internal/model"
-	"time"
+
+	"gorm.io/gorm"
 )
 
 type CategoryRepository interface {
 	Create(ctx context.Context, c *model.Category) error
 	GetAll(ctx context.Context) ([]*model.Category, error)
+	DB() *gorm.DB
 }
 
 type CategoryService struct {
@@ -34,24 +36,25 @@ func (s *CategoryService) GetAll(ctx context.Context) ([]model.Category, error) 
 }
 
 func (s *CategoryService) Create(ctx context.Context, req dto.CreateCategoryRequest) (*dto.CategoryResponse, error) {
-	now := time.Now()
-	active := true
-	if req.Active != nil {
-		active = *req.Active
+
+	// начинаем транзакцию через GORM
+	transaction := s.CategoryRepository.DB().Begin()
+	if transaction.Error != nil {
+		return nil, transaction.Error
 	}
 
 	cat := &model.Category{
 		Name:        req.Name,
 		Description: req.Description,
-		Active:      active,
-		CreatedAt:   now,
-		UpdatedAt:   now,
 	}
 
-	if err := s.CategoryRepository.Create(ctx, cat); err != nil {
+	// создаем категорию в рамках транзакции
+	if err := transaction.WithContext(ctx).Create(cat).Error; err != nil {
+		transaction.Rollback() // откатываем при ошибке
 		return nil, err
 	}
 
+	// формируем ответ
 	res := &dto.CategoryResponse{
 		ID:          cat.ID,
 		Name:        cat.Name,
@@ -59,6 +62,10 @@ func (s *CategoryService) Create(ctx context.Context, req dto.CreateCategoryRequ
 		Active:      cat.Active,
 		CreatedAt:   cat.CreatedAt,
 		UpdatedAt:   cat.UpdatedAt,
+	}
+
+	if err := transaction.Commit().Error; err != nil {
+		return nil, err
 	}
 
 	return res, nil
