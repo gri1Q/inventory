@@ -20,8 +20,10 @@ func (r *CategoryRepository) Create(ctx context.Context, category *model.Categor
 }
 
 func (r *CategoryRepository) GetAll(ctx context.Context) ([]*model.Category, error) {
+
 	var categories []*model.Category
 	err := r.db.WithContext(ctx).Find(&categories).Error
+
 	return categories, err
 }
 

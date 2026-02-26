@@ -35,7 +35,7 @@ func main() {
 	categoryService := service.NewCategoryService(categoryRepo)
 	categoryHandler := handler.NewCategoryHandler(categoryService)
 
-	router := router.SetupRouter(categoryHandler)
+	router := router.SetupRouter(categoryHandler, cfg)
 	router.Run(cfg.HTTPServer.Addr)
 
 	//TODO: init logger: slog

@@ -3,9 +3,8 @@ package handler
 import (
 	"errors"
 	"inventory/internal/dto"
-	"net/http"
-
 	"inventory/internal/service"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
